@@ -1,0 +1,38 @@
+/* Star */
+.star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  aspect-ratio: 1;
+}
+
+.star .part {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background-color: var(--background-color);
+}
+
+.star .part-0 {
+  top: 0;
+  left: 0;
+  border-radius: 0 0 100% 0;
+}
+
+.star .part-1 {
+  top: 0;
+  right: 0;
+  border-radius: 0 0 0 100%;
+}
+
+.star .part-2 {
+  bottom: 0;
+  right: 0;
+  border-radius: 100% 0 0 0;
+}
+
+.star .part-3 {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 0;
+}

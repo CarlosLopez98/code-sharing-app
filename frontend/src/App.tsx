@@ -3,6 +3,7 @@ import MonacoEditor from "./components/MonacoEditor";
 import { useMonacoConfig } from "./hooks/useMonacoConfig";
 import { Language, Theme } from "./types/editor.d";
 import "./App.css";
+import Star from "./components/common/Star";
 
 const App: React.FC = () => {
   const { language, theme, setLanguage, setTheme } = useMonacoConfig();
@@ -38,6 +39,20 @@ const App: React.FC = () => {
 
         <button>Share</button>
       </div>
+
+      {/* Stars */}
+      <div id="star1">
+        <Star color="#6DA7FC" />
+      </div>
+      <div id="star2">
+        <Star color="#FF7F69" />
+      </div>
+      <div id="star3">
+        <Star color="#A297FF" />
+      </div>
+
+      {/* Background */}
+      <div className="background-circle"></div>
     </div>
   )
 }

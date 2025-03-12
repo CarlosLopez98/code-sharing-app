@@ -41,7 +41,9 @@ const MonacoEditor: React.FC = () => {
 
     return () => {
       monacoInstance.current?.dispose();
-    }
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

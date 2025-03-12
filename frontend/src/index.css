@@ -16,6 +16,8 @@
   --primary-color: #F9F8FD;
   --secondary-color: #A06FED;
   --complementary-color: #3661FE;
+
+  --background-color: #242424;
 }
 
 * {
@@ -58,7 +60,7 @@ button {
   font-size: 0.75rem;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--complementary-color);
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -88,8 +90,11 @@ select {
     --secondary-color: #A06FED;
     --complementary-color: #3661FE;
 
+    --background-color: var(--primary-color);
+
     color: #1C1C1C;
-    background-color: var(--primary-color);
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 40%, rgba(160,111,237,1) 100%); 
   }
   a:hover {
     color: var(--secondary-color);
