@@ -1,10 +1,14 @@
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
+  gap: 40px;
   width: 80%;
-  height: 100%;
+  height: auto;
+  padding-top: 40px;
+  margin: 0 auto;
 }
 
 .logo-container {
@@ -21,7 +25,7 @@
   left: -6px;
   width: 100%;
   height: 100%;
-  background-color: var(--complementary-color);
+  background-color: #3661FE;
   border-radius: 4px;
   z-index: -1;
 }
@@ -39,4 +43,27 @@
   font-size: 1.25rem;
   letter-spacing: 1.2px;
   font-weight: 600;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 8px 12px;
+  background-color: var(--secondary-color);
+  z-index: 1;
+}
+
+.footer .editor-actions {
+  display: flex;
+  gap: 8px;
 }
