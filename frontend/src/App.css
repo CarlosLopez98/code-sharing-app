@@ -81,6 +81,11 @@
   gap: 8px;
 }
 
+.footer .user-actions {
+  display: flex;
+  gap: 8px;
+}
+
 @media (prefers-color-scheme: light) {
   .background-circle {
     background-color: var(--primary-color);

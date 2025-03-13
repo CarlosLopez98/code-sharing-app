@@ -5,6 +5,15 @@ export interface MonacoContextType {
   setTheme: (theme: Theme) => void;
 }
 
+export const languageExtensions: Record<string, string> = {
+  javascript: "js",
+  typescript: "ts",
+  python: "py",
+  java: "java",
+  csharp: "cs",
+  html: "html"
+}
+
 export enum Language {
   JavaScript = "javascript",
   TypeScript = "typescript",

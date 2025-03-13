@@ -2,11 +2,13 @@ import React from "react";
 import MonacoEditor from "./components/MonacoEditor";
 import { useMonacoConfig } from "./hooks/useMonacoConfig";
 import { Language, Theme } from "./types/editor.d";
-import "./App.css";
 import Star from "./components/common/Star";
+import "./App.css";
+import { useFile } from "./hooks/useFile";
 
 const App: React.FC = () => {
   const { language, theme, setLanguage, setTheme } = useMonacoConfig();
+  const { changed, exportToFile } = useFile();
 
   return (
     <div className="container">
@@ -37,7 +39,10 @@ const App: React.FC = () => {
           </select>
         </div>
 
-        <button>Share</button>
+        <div className="user-actions">
+          <button onClick={exportToFile}>Download</button>
+          <button disabled={!changed}>Share</button>
+        </div>
       </div>
 
       {/* Stars */}
