@@ -41,7 +41,7 @@ const App: React.FC = () => {
 
         <div className="user-actions">
           <button onClick={exportToFile}>Download</button>
-          <button disabled={!changed}>Share</button>
+          {changed ? <button>Share</button> : <div className="disable-button">Share</div>}
         </div>
       </div>
 
