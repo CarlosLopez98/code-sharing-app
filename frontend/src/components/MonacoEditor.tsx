@@ -19,6 +19,7 @@ const MonacoEditor: React.FC = () => {
         language: language,
         theme: theme,
         automaticLayout: true,
+        minimap: { enabled: false },
       });
 
       monacoInstance.current.onDidChangeModelContent(() => {
