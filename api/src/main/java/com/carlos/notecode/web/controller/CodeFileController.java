@@ -1,5 +1,6 @@
 package com.carlos.notecode.web.controller;
 
+import com.carlos.notecode.domain.dto.CodeFileDTO;
 import com.carlos.notecode.domain.service.CodeFileService;
 import com.carlos.notecode.persistence.entity.CodeFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,25 +20,25 @@ public class CodeFileController {
     private CodeFileService codeFileService;
 
     @GetMapping("/{fileId}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
+    public ResponseEntity<Resource> getFile(@PathVariable String fileId) {
         try {
-            byte[] fileData = codeFileService.getFile(fileId);
+            Resource file = codeFileService.getFile(fileId);
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline")
-                    .body(fileData);
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                    .body(file);
         }catch (Exception e) {
             return ResponseEntity.status(404).body(null);
         }
     }
 
     @PostMapping
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<CodeFileDTO> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            CodeFile savedFile = codeFileService.storeFile(file);
+            CodeFileDTO savedFile = codeFileService.storeFile(file);
             return ResponseEntity.ok(savedFile);
         }catch (IOException e) {
-            return ResponseEntity.status(500).body("Error while uploading the file");
+            return ResponseEntity.status(500).body(null);
         }
     }
 }

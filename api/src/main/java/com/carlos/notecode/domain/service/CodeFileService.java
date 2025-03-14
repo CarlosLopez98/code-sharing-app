@@ -1,7 +1,9 @@
 package com.carlos.notecode.domain.service;
 
+import com.carlos.notecode.domain.dto.CodeFileDTO;
 import com.carlos.notecode.domain.repository.CodeFileRepository;
 import com.carlos.notecode.persistence.entity.CodeFile;
+import com.carlos.notecode.persistence.mapper.CodeFileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -24,7 +26,7 @@ public class CodeFileService {
     @Autowired
     private CodeFileRepository codeFileRepository;
 
-    public byte[] getFile(String id) throws IOException {
+    public Resource getFile(String id) throws MalformedURLException {
         Optional<CodeFile> fileRecord = codeFileRepository.getByCodeFileId(id);
 
         if(fileRecord.isEmpty()) {
@@ -32,10 +34,10 @@ public class CodeFileService {
         }
 
         Path filePath = Paths.get(fileRecord.get().getFilePath());
-        return Files.readAllBytes(filePath);
+        return new UrlResource(filePath.toUri());
     }
 
-    public CodeFile storeFile(MultipartFile file) throws IOException {
+    public CodeFileDTO storeFile(MultipartFile file) throws IOException {
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         Path directoryPath = Paths.get(uploadDir);
         String filePath = Paths.get(uploadDir, fileName).toString();
@@ -53,6 +55,6 @@ public class CodeFileService {
                 .filename(fileName)
                 .filePath(filePath)
                 .build();
-        return codeFileRepository.create(uploadedFile);
+        return CodeFileMapper.toDto(codeFileRepository.create(uploadedFile));
     }
 }
