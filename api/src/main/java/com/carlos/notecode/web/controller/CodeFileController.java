@@ -26,6 +26,7 @@ public class CodeFileController {
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                    .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Content-Disposition")
                     .body(file);
         }catch (Exception e) {
             return ResponseEntity.status(404).body(null);
