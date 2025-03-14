@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { FileContext } from "./contexts";
-import { languageExtensions } from "../types/editor.d";
+import { Language, languageExtensions } from "../types/editor.d";
+import { extensionLanguages } from "../types/file.d";
 import { useMonacoConfig } from "../hooks/useMonacoConfig";
 
-import { uploadFile as uploadFileService } from "../services/FileService";
+import { uploadFile as uploadFileService, fetchFile as fetchFileService } from "../services/FileService";
 
 const initialText = `<html>
   <head>
@@ -28,7 +29,7 @@ const FileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const [ogContent, setOgContent] = useState<string>(initialText);
   const [content, setContent] = useState<string>(initialText);
   const [changed, setChanged] = useState<boolean>(false);
-  const { language } = useMonacoConfig();
+  const { language, setLanguage } = useMonacoConfig();
 
   const exportToFile = () => {
     const code = content;
@@ -61,8 +62,16 @@ const FileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     await uploadFileService(file);
   }
 
-  const fetchFile = async () => {
-
+  const fetchFile = async (fileId: string) => {
+    fetchFileService(fileId)
+      .then((fileData) => {
+        if (fileData) {
+          setOgContent(fileData.content);
+          setContent(fileData.content);
+          setLanguage(extensionLanguages[fileData.ext] as Language);
+        }
+      })
+      .catch(error => console.error("Error in FileProvider:fetchFile.", error));
   }
 
   return (

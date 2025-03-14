@@ -39,7 +39,7 @@ const MonacoEditor: React.FC = () => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [content]);
 
   useEffect(() => {
     if (monacoInstance.current) {

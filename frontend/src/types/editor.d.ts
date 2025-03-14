@@ -11,7 +11,8 @@ export const languageExtensions: Record<string, string> = {
   python: "py",
   java: "java",
   csharp: "cs",
-  html: "html"
+  html: "html",
+  text: "txt",
 }
 
 export enum Language {
@@ -21,6 +22,7 @@ export enum Language {
   Java = "java",
   CSharp = "csharp",
   Html = "html",
+  Text = "text"
 }
 
 export enum Theme {

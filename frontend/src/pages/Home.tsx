@@ -9,12 +9,13 @@ import "./Home.css";
 
 const Home: React.FC = () => {
   const { language, theme, setLanguage, setTheme } = useMonacoConfig();
-  const { changed, exportToFile, uploadFile } = useFile();
+  const { changed, exportToFile, uploadFile, fetchFile } = useFile();
   const { fileId } = useParams();
 
   useEffect(() => {
-    if (fileId)
-      console.log("File id: ", fileId)
+    if (fileId) {
+      fetchFile(fileId);
+    }
   }, [fileId]);
 
   return (
