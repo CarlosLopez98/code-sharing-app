@@ -6,4 +6,6 @@ export interface FileContextType {
   setContent: (content: string) => void;
   setChanged: (value: boolean) => void;
   exportToFile: () => void;
+  uploadFile: () => void;
+  fetchFile: () => void;
 }

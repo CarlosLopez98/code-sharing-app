@@ -9,7 +9,7 @@ import "./Home.css";
 
 const Home: React.FC = () => {
   const { language, theme, setLanguage, setTheme } = useMonacoConfig();
-  const { changed, exportToFile } = useFile();
+  const { changed, exportToFile, uploadFile } = useFile();
   const { fileId } = useParams();
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Home: React.FC = () => {
 
         <div className="user-actions">
           <button onClick={exportToFile}>Download</button>
-          {changed ? <button>Share</button> : <div className="disable-button">Share</div>}
+          {changed ? <button onClick={uploadFile}>Share</button> : <div className="disable-button">Share</div>}
         </div>
       </div>
 

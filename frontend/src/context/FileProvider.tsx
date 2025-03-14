@@ -3,6 +3,8 @@ import { FileContext } from "./contexts";
 import { languageExtensions } from "../types/editor.d";
 import { useMonacoConfig } from "../hooks/useMonacoConfig";
 
+import { uploadFile as uploadFileService } from "../services/FileService";
+
 const initialText = `<html>
   <head>
     <title>HTML Sample</title>
@@ -48,8 +50,23 @@ const FileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     document.body.removeChild(a);
   }
 
+  const uploadFile = async () => {
+    const code = content;
+    const extension = languageExtensions[language] || "txt";
+    const fileName = `code.${extension}`;
+
+    const blob = new Blob([code], { type: "text/plain" });
+    const file = new File([blob], fileName, { type: "text/plain" });
+
+    await uploadFileService(file);
+  }
+
+  const fetchFile = async () => {
+
+  }
+
   return (
-    <FileContext.Provider value={{ ogContent, setOgContent, content, setContent, changed, setChanged, exportToFile }}>
+    <FileContext.Provider value={{ ogContent, setOgContent, content, setContent, changed, setChanged, exportToFile, uploadFile, fetchFile }}>
       {children}
     </FileContext.Provider>
   )
