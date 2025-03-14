@@ -24,7 +24,7 @@ public class CodeFileService {
     @Autowired
     private CodeFileRepository codeFileRepository;
 
-    public Resource getFile(String id) throws MalformedURLException {
+    public byte[] getFile(String id) throws IOException {
         Optional<CodeFile> fileRecord = codeFileRepository.getByCodeFileId(id);
 
         if(fileRecord.isEmpty()) {
@@ -32,7 +32,7 @@ public class CodeFileService {
         }
 
         Path filePath = Paths.get(fileRecord.get().getFilePath());
-        return new UrlResource(filePath.toUri());
+        return Files.readAllBytes(filePath);
     }
 
     public CodeFile storeFile(MultipartFile file) throws IOException {

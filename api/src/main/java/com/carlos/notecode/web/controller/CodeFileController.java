@@ -19,13 +19,13 @@ public class CodeFileController {
     private CodeFileService codeFileService;
 
     @GetMapping("/{fileId}")
-    public ResponseEntity<Resource> getFile(@PathVariable String fileId) {
+    public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
         try {
-            Resource file = codeFileService.getFile(fileId);
+            byte[] fileData = codeFileService.getFile(fileId);
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-                    .body(file);
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline")
+                    .body(fileData);
         }catch (Exception e) {
             return ResponseEntity.status(404).body(null);
         }
