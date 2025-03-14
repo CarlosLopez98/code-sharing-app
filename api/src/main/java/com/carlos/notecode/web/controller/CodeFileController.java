@@ -1,5 +1,6 @@
 package com.carlos.notecode.web.controller;
 
+import com.carlos.notecode.domain.dto.CodeFileDTO;
 import com.carlos.notecode.domain.service.CodeFileService;
 import com.carlos.notecode.persistence.entity.CodeFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,12 @@ public class CodeFileController {
     }
 
     @PostMapping
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<CodeFileDTO> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            CodeFile savedFile = codeFileService.storeFile(file);
+            CodeFileDTO savedFile = codeFileService.storeFile(file);
             return ResponseEntity.ok(savedFile);
         }catch (IOException e) {
-            return ResponseEntity.status(500).body("Error while uploading the file");
+            return ResponseEntity.status(500).body(null);
         }
     }
 }
