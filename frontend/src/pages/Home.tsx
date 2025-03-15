@@ -9,13 +9,14 @@ import "./Home.css";
 
 const Home: React.FC = () => {
   const { language, theme, setLanguage, setTheme } = useMonacoConfig();
-  const { changed, exportToFile, uploadFile, fetchFile } = useFile();
+  const { changed, loading, exportToFile, uploadFile, fetchFile } = useFile();
   const { fileId } = useParams();
 
   useEffect(() => {
     if (fileId) {
       fetchFile(fileId);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileId]);
 
   return (
@@ -52,6 +53,12 @@ const Home: React.FC = () => {
           {changed ? <button onClick={uploadFile}>Share</button> : <div className="disable-button">Share</div>}
         </div>
       </div>
+
+      {/* Loading */}
+      {loading && <div className="loading">
+        <span className="loader"></span>
+        <p>Loading...</p>
+      </div>}
 
       {/* Stars */}
       <div id="star1">

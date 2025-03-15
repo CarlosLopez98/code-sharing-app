@@ -3,6 +3,7 @@ export interface FileContextType {
   ogContent: string;
   content: string;
   changed: boolean;
+  loading: boolean;
   setOgContent: (content: string) => void;
   setContent: (content: string) => void;
   setChanged: (value: boolean) => void;

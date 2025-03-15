@@ -29,6 +29,7 @@ const FileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const [ogContent, setOgContent] = useState<string>(initialText);
   const [content, setContent] = useState<string>(initialText);
   const [changed, setChanged] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const { language, setLanguage } = useMonacoConfig();
 
   const exportToFile = () => {
@@ -63,6 +64,7 @@ const FileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   }
 
   const fetchFile = async (fileId: string) => {
+    setLoading(true);
     fetchFileService(fileId)
       .then((fileData) => {
         if (fileData) {
@@ -71,11 +73,12 @@ const FileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
           setLanguage(extensionLanguages[fileData.ext] as Language);
         }
       })
-      .catch(error => console.error("Error in FileProvider:fetchFile.", error));
+      .catch(error => { console.error("Error in FileProvider:fetchFile.", error) })
+      .finally(() => setLoading(false));
   }
 
   return (
-    <FileContext.Provider value={{ ogContent, setOgContent, content, setContent, changed, setChanged, exportToFile, uploadFile, fetchFile }}>
+    <FileContext.Provider value={{ ogContent, content, changed, loading, setOgContent, setContent, setChanged, exportToFile, uploadFile, fetchFile }}>
       {children}
     </FileContext.Provider>
   )
