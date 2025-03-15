@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MonacoEditor from "../components/MonacoEditor";
 import { useMonacoConfig } from "../hooks/useMonacoConfig";
 import { useFile } from "../hooks/useFile";
@@ -8,16 +8,28 @@ import Star from "../components/common/Star";
 import "./Home.css";
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   const { language, theme, setLanguage, setTheme } = useMonacoConfig();
-  const { changed, loading, exportToFile, uploadFile, fetchFile } = useFile();
-  const { fileId } = useParams();
+  const { fileId, changed, loading, setFileId, exportToFile, uploadFile, fetchFile } = useFile();
+  const { fileId: id } = useParams();
 
   useEffect(() => {
-    if (fileId) {
-      fetchFile(fileId);
+    if (id) {
+      setFileId(id);
+      fetchFile(id);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fileId]);
+  }, []);
+
+  useEffect(() => {
+    if (fileId === "")
+      navigate("/");
+    else
+      navigate(`/file/${fileId}`);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fileId])
 
   return (
     <div className="container">

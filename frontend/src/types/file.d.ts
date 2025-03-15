@@ -1,9 +1,11 @@
 import { Language } from "./editor.d";
 export interface FileContextType {
+  fileId: string;
   ogContent: string;
   content: string;
   changed: boolean;
   loading: boolean;
+  setFileId: (value: string) => void;
   setOgContent: (content: string) => void;
   setContent: (content: string) => void;
   setChanged: (value: boolean) => void;
