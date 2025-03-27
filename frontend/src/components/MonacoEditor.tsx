@@ -1,64 +1,38 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import * as monaco from "monaco-editor";
+import Editor from "@monaco-editor/react";
 import { useMonacoConfig } from "../hooks/useMonacoConfig";
 import { useFile } from "../hooks/useFile";
 import "./MonacoEditor.css";
 
 const MonacoEditor: React.FC = () => {
-  const editorRef = useRef<HTMLDivElement>(null);
   const monacoInstance = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
 
   const { language, theme } = useMonacoConfig();
   const { ogContent, content, setContent, setChanged } = useFile();
 
-  useEffect(() => {
-    // Load the editor
-    if (editorRef.current) {
-      monacoInstance.current = monaco.editor.create(editorRef.current, {
-        value: content,
-        language: language,
-        theme: theme,
-        automaticLayout: true,
-        minimap: { enabled: false },
-      });
+  const editorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
+    monacoInstance.current = editor;
+  };
 
-      monacoInstance.current.onDidChangeModelContent(() => {
-        if (monacoInstance.current) {
-          if (ogContent !== monacoInstance.current.getValue()) {
-            setChanged(true);
-          } else {
-            setChanged(false);
-          }
-          setContent(monacoInstance.current.getValue());
-        }
-      });
+  const handleChange = (value: string | undefined) => {
+    setContent(value || "");
+    if (ogContent !== value) {
+      setChanged(true);
+    } else {
+      setChanged(false);
     }
+  }
 
-    return () => {
-      monacoInstance.current?.dispose();
-    };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content]);
-
-  useEffect(() => {
-    if (monacoInstance.current) {
-      monacoInstance.current.setModel(
-        monaco.editor.createModel(
-          monacoInstance.current.getValue(),
-          language
-        )
-      );
-    }
-  }, [language]);
-
-  useEffect(() => {
-    if (monacoInstance.current) {
-      monaco.editor.setTheme(theme);
-    }
-  }, [theme]);
-
-  return <div ref={editorRef} className="editor"></div>;
+  return <Editor
+    className="editor"
+    defaultLanguage={language}
+    language={language}
+    defaultValue={content}
+    theme={theme}
+    onMount={editorDidMount}
+    onChange={handleChange}
+  />
 }
 
 export default MonacoEditor
