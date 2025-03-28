@@ -1,5 +1,5 @@
 export class FileService {
-  private static api_url: string = "http://localhost:8080/api";
+  private static api_url: string = "/api";
 
   public static async uploadFile(file: File, abortController: AbortController) {
     const formData = new FormData();
