@@ -3,6 +3,7 @@ import { FileContext } from "./contexts";
 import { Language, languageExtensions } from "../types/editor.d";
 import { extensionLanguages } from "../types/file.d";
 import { useMonacoConfig } from "../hooks/useMonacoConfig";
+import { toast } from "react-hot-toast";
 
 import { FileService } from "../services/FileService";
 
@@ -49,11 +50,15 @@ const FileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     document.body.appendChild(a);
     a.click();
 
+    toast.success("File downloaded!", { duration: 2000 });
+
     URL.revokeObjectURL(url);
     document.body.removeChild(a);
   }
 
   const uploadFile = async () => {
+    setLoading(true);
+
     const code = content;
     const extension = languageExtensions[language] || "txt";
     const fileName = `code.${extension}`;
@@ -68,11 +73,17 @@ const FileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
           setFileId(data.id);
         setChanged(false);
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        toast.error("Sorry, there was an error while sharing the file.", { duration: 3000 })
+        console.error(error);
+      })
+      .finally(() => setLoading(false));
   }
 
   const fetchFile = async (fileId: string) => {
     try {
+      setLoading(true);
+
       const response = await FileService.getFile(fileId, new AbortController())
 
       if (!response.ok) {
@@ -98,7 +109,10 @@ const FileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
       setContent(content);
       setLanguage(extensionLanguages[extension] as Language);
     } catch (error) {
+      toast.error("Error while getting the code. Try later.", { duration: 3000 });
       console.error("Error in fetchFile:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
