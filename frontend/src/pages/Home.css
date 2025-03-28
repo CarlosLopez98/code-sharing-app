@@ -158,7 +158,30 @@
     transform: scale(1.2, 1);
   }
 }
-      
+
+.share-container {
+  position: fixed;
+  bottom: 58px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  width: auto;
+  height: auto;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #F9F8FD;
+}
+
+.share-container .link {
+  max-width: 300px;
+  height: 30px;
+  background-color: #d1d1d1;
+  border-radius: 4px;
+  padding: 4px;
+  color: #242424;
+  font-size: 14px;
+  overflow-x: auto;
+}
 
 @media (prefers-color-scheme: light) {
   .background-circle {

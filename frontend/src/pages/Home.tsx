@@ -6,6 +6,7 @@ import { useFile } from "../hooks/useFile";
 import { Language, Theme } from "../types/editor.d";
 import Star from "../components/common/Star";
 import "./Home.css";
+import toast from "react-hot-toast";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -25,11 +26,22 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (fileId === "")
       navigate("/");
-    else
+    else {
       navigate(`/file/${fileId}`);
+      // copyLink();
+      // toast("Link copied to clipboard", { duration: 3000 })
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileId])
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(`http://localhost:5173/file/${fileId}`);
+    } catch (error) {
+      console.error("Error while coping:", error);
+    }
+  }
 
   return (
     <div className="container">
@@ -71,6 +83,13 @@ const Home: React.FC = () => {
         <span className="loader"></span>
         <p>Loading...</p>
       </div>}
+
+      {/* <div className="share-container">
+        <div className="link">
+          <span>{`http://localhost:5173/file/${fileId}`}</span>
+        </div>
+        <button onClick={copyLink}>Copy</button>
+      </div> */}
 
       {/* Stars */}
       <div id="star1">
