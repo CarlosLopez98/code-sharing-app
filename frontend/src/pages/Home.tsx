@@ -6,7 +6,7 @@ import { useFile } from "../hooks/useFile";
 import { Language, Theme } from "../types/editor.d";
 import Star from "../components/common/Star";
 import "./Home.css";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -35,13 +35,13 @@ const Home: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileId])
 
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(`http://localhost:5173/file/${fileId}`);
-    } catch (error) {
-      console.error("Error while coping:", error);
-    }
-  }
+  // const copyLink = async () => {
+  //   try {
+  //     await navigator.clipboard.writeText(`http://localhost:5173/file/${fileId}`);
+  //   } catch (error) {
+  //     console.error("Error while coping:", error);
+  //   }
+  // }
 
   return (
     <div className="container">
