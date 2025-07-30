@@ -2,6 +2,12 @@
 
 A web platform for developers to share code snippets with syntax highlighting, expiration options, and easy access to download or embed.
 
+## Overview
+
+![screenshot](https://i.postimg.cc/J7Xf9rPX/Screenshot-2025-03-31-at-18-53-48-Code-Sharing-App.png)
+
+In this project the user can share their code script and get a link for they to use it however they want to.
+
 ## 📦 Table of Contents
 
 - [Features](#features)
