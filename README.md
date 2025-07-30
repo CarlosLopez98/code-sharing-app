@@ -1,91 +1,117 @@
-<!-- Please update value in the {}  -->
+# Code Sharing App
 
-<h1 align="center">Code Sharing App</h1>
+A web platform for developers to share code snippets with syntax highlighting, expiration options, and easy access to download or embed.
 
-<div align="center">
-   Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
-</div>
+## 📦 Table of Contents
 
-<div align="center">
-  <h3>
-    <a href="https://{your-demo-link.your-domain}">
-      Demo
-    </a>
-    <span> | </span>
-    <a href="https://github.com/carloslopez98/code-sharing-app">
-      Solution
-    </a>
-    <span> | </span>
-    <a href="https://devchallenges.io/challenge/code-shraing-app-note-code">
-      Challenge
-    </a>
-  </h3>
-</div>
-
-<!-- TABLE OF CONTENTS -->
-
-## Table of Contents
-
-- [Overview](#overview)
-  - [Built With](#built-with)
 - [Features](#features)
-- [How to use](#how-to-use)
+- [technologies](#technologies)
+- [Installation](#installation)  
+- [Configuration](#configuration)  
+- [Usage](#usage)  
+- [Project Structure](#project-structure)
+- [License](#license)  
 - [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
 
-<!-- OVERVIEW -->
+## 🚀 Features
 
-## Overview
+- Create and share code snippets via unique URLs
+- Syntax highlighting for multiple languages (via Prism.js, Highlight.js, etc.)
+- Optional expiration (auto-delete after X views or time)
+- Copy-to-clipboard and download buttons
+- Embed snippets in other pages
+- Lightweight and secure API endpoints
 
-![screenshot](https://i.postimg.cc/J7Xf9rPX/Screenshot-2025-03-31-at-18-53-48-Code-Sharing-App.png)
+## 🧱 Technologies
 
-In this project the user can share their code script and get a link for they to use it however they want to.
+- **Backend**: Java / Spring Boot
+- **Database**: PostgreSQL
+- **Syntax Highlighting**: Prism.js
+- **Frontend**: React
+- **Environment management**: dotenv
 
-- At this time, the project is not hosted on a server to view the demo.
-- I had a great time doing this project, learned a lot, and made progress on my path to becoming a Spring Boot developer.
-- I learned how to manage file sending, in this case code, and save them on the server with Spring Boot.
-- Your wisdom? :)
+## 🛠️ Installation
 
-### Built With
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/CarlosLopez98/code-sharing-app.git
+   cd code-sharing-app
+   ```
 
-- [React](https://reactjs.org/)
-- [Spring Boot](https://spring.io/projects/spring-boot)
+2. Install dependencies:
+   ```bash
+   cd backend && npm install
+   cd ../frontend && npm install
+   ```
 
-## Features
+3. Create the `.env` file based on `.env.example`, for example:
+   ```
+   PORT=5000
+   DB_URI=mongodb://localhost:27017/code_share
+   MAX_SNIPPET_LIFETIME=86400
+   RATE_LIMIT=100
+   ```
 
-<!-- List the features of your application or follow the template. Don't share the figma file here :) -->
+4. Launch development servers:
+   ```bash
+   # From backend
+   npm run dev
 
-This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenge/code-shraing-app-note-code) was to build an application to complete the given user stories.
+   # From frontend
+   npm start
+   ```
+Then visit `http://localhost:3000`.
 
-## How To Use
+## 🎯 Usage
 
-<!-- Example: -->
+1. Open the web interface or use the REST API.
+2. Paste or type your code snippet.
+3. Select language, description, and expiration (views/time).
+4. Generate the snippet—receive a shareable URL to view or embed.
+5. Copy snippet, download as file, or embed as an iframe using provided HTML.
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+## 🗂️ Project Structure
 
-```bash
-# Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
-
-# Install dependencies
-$ npm install
-
-# Run the app
-$ npm start
+```
+code-sharing-app/
+├── api/
+│   ├── database/
+│   ├── src/
+│      ├── java/
+│         ├── domain/
+│         ├── persistance/
+│         ├── web
+│         └── NotecodeApplication.java
+│      └── resources/
+├── frontend/
+│   ├── src/
+│      ├── components/
+│      ├── context/
+│      ├── hooks/
+│      ├── pages/
+│      ├── services/
+│      ├── types/
+│      ├── App.tsx
+│      └── main.tsx
+│   └── index.html
+├── .env.example
+├── README.md
+└── package.json
 ```
 
-<!--
-## Acknowledgements
+## ⚙️ Configuration
 
-<!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For example -->
+| Variable               | Description                                | Default         |
+|------------------------|--------------------------------------------|-----------------|
+| `PORT`                 | Backend server port                        | `5000`          |
+| `DB_URI`               | Path to your database                      | Required        |
+| `MAX_SNIPPET_LIFETIME` | Default snippet lifetime in seconds        | `86400` (1 day) |
+| `RATE_LIMIT`           | API calls per IP per timeframe             | `100`           |
 
-- [Steps to replicate a design with only HTML and CSS](https://devchallenges-blogs.web.app/how-to-replicate-design/)
-- [Node.js](https://nodejs.org/)
-- [Marked - a markdown parser](https://github.com/chjj/marked)
--->
+## 📄 License
 
-## Contact
+Licensed under the [MIT License](LICENSE).
 
-- Website [your-website.com](https://{your-web-site-link})
-- GitHub [@your-username](https://{github.com/your-usermame})
-- Twitter [@your-twitter](https://{twitter.com/your-username})
+## ✉️ Contact
+
+If you have feedback or questions, feel free to open an issue on GitHub.
